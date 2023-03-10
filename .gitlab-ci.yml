@@ -3,8 +3,11 @@ image: python:latest
 build:
   stage: build
   script:
-    - pip install flit
-    - flit build
+    - python3 -mvenv venv
+    - . venv/bin/activate
+    - pip install . pytest
+    - cd tests
+    - python3 -munittest --verbose
 
 black:
   stage: test
