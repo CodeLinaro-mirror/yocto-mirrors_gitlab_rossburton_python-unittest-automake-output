@@ -1,0 +1,13 @@
+image: python:latest
+
+build:
+  stage: build
+  script:
+    - pip install flit
+    - flit build
+
+black:
+  stage: test
+  image: registry.gitlab.com/pipeline-components/black:latest
+  script:
+    - black --verbose --check -- .
