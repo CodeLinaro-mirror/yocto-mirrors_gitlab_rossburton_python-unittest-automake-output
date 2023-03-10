@@ -14,13 +14,13 @@ class TestAutomake(unittest.TestCase):
         PASS: tests.py:test_passes
 ============================================================================
 Testsuite summary for PATH
-TOTAL: 1
-PASS: 1
-SKIP: 0
-XFAIL: 0
-FAIL: 0
-XPASS: 0
-ERROR: 0
+# TOTAL: 1
+# PASS: 1
+# SKIP: 0
+# XFAIL: 0
+# FAIL: 0
+# XPASS: 0
+# ERROR: 0
 """.lstrip()
 
         p = subprocess.run(
@@ -49,13 +49,13 @@ XFAIL: tests.py:test_xfail_function # XFAIL reason: using pytest.xfail()
 XPASS: tests.py:test_xfail_doesnt # XPASS using pytest.mark.xfail
 ============================================================================
 Testsuite summary for PATH
-TOTAL: 7
-PASS: 1
-SKIP: 2
-XFAIL: 2
-FAIL: 1
-XPASS: 1
-ERROR: 0
+# TOTAL: 7
+# PASS: 1
+# SKIP: 2
+# XFAIL: 2
+# FAIL: 1
+# XPASS: 1
+# ERROR: 0
 """.lstrip()
 
         p = subprocess.run(
