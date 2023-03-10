@@ -2,10 +2,16 @@
 # SPDX-License-Identifier: MIT
 
 import pytest
-import collections
 
 ENABLED = False
-counts = collections.Counter()
+counts = {
+    "PASS": 0,
+    "SKIP": 0,
+    "XFAIL": 0,
+    "FAIL": 0,
+    "XPASS": 0,
+    "ERROR": 0,
+}
 
 
 def pytest_addoption(parser):
