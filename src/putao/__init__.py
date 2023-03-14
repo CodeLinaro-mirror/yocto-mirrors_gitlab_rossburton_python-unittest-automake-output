@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 """
-Pytest plugin to write automake-style test reports.
+Tools to write automake-style test reports.
 """
 
 __version__ = "0.1"
