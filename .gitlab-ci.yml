@@ -3,9 +3,18 @@ image: python:latest
 build:
   stage: build
   script:
+    - pip3 install flit
+    - flit build
+  artifacts:
+    paths:
+      - dist/
+
+test:
+  stage: test
+  script:
     - python3 -mvenv venv
     - . venv/bin/activate
-    - pip install . pytest
+    - pip3 install dist/*.whl pytest
     - cd tests
     - python3 -munittest --verbose
 
