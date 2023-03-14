@@ -92,7 +92,7 @@ def pytest_unconfigure(config):
         return
 
     print("=" * 76)
-    print(f"Testsuite summary for {config.rootdir}")
+    print("Testsuite summary")
     print(f"# TOTAL: {sum(counts.values())}")
     for k, v in counts.items():
         print(f"# {k}: {v}")

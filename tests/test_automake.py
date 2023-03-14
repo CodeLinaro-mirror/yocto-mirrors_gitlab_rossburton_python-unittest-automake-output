@@ -1,11 +1,8 @@
 # SPDX-FileCopyrightText: Copyright 2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
 # SPDX-License-Identifier: MIT
 
-import os
 import subprocess
 import unittest
-
-test_dir = os.path.dirname(__file__)
 
 
 class TestAutomake(unittest.TestCase):
@@ -13,7 +10,7 @@ class TestAutomake(unittest.TestCase):
         expected = """
         PASS: tests.py:test_passes
 ============================================================================
-Testsuite summary for PATH
+Testsuite summary
 # TOTAL: 1
 # PASS: 1
 # SKIP: 0
@@ -28,8 +25,7 @@ Testsuite summary for PATH
             capture_output=True,
             text=True,
         )
-        output = p.stdout.replace(test_dir, "PATH")
-        self.assertEqual(output, expected)
+        self.assertEqual(p.stdout, expected)
         self.assertEqual(p.returncode, 0)
 
     def test_all(self):
@@ -56,7 +52,7 @@ E       Exception: Raised exception
 tests.py:42: Exception
 ERROR: tests.py:test_error
 ============================================================================
-Testsuite summary for PATH
+Testsuite summary
 # TOTAL: 8
 # PASS: 1
 # SKIP: 2
@@ -69,6 +65,5 @@ Testsuite summary for PATH
         p = subprocess.run(
             ["pytest", "--automake", "tests.py"], capture_output=True, text=True
         )
-        output = p.stdout.replace(test_dir, "PATH")
-        self.assertEqual(output, expected)
+        self.assertEqual(p.stdout, expected)
         self.assertEqual(p.returncode, 1)
