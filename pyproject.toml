@@ -4,9 +4,13 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "pytest_automake"
-authors = [{name = "Ross Burton", email = "ross.burton@arm.com"}]
-license = {file = "LICENSE"}
-classifiers = ["License :: OSI Approved :: MIT License"]
+authors = [{ name = "Ross Burton", email = "ross.burton@arm.com" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Software Development :: Testing",
+    "Framework :: Pytest",
+]
 dynamic = ["version", "description"]
 
 [project.entry-points."pytest11"]
