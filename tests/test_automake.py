@@ -47,15 +47,23 @@ SKIP: tests.py:test_skip_function # SKIP using pytest.skip()
 XFAIL: tests.py:test_xfail_decorator # XFAIL using pytest.mark.xfail
 XFAIL: tests.py:test_xfail_function # XFAIL reason: using pytest.xfail()
 XPASS: tests.py:test_xfail_doesnt # XPASS using pytest.mark.xfail
+
+@pytest.fixture
+    def failing_fixture():
+>       raise Exception("Raised exception")
+E       Exception: Raised exception
+
+tests.py:42: Exception
+ERROR: tests.py:test_error
 ============================================================================
 Testsuite summary for PATH
-# TOTAL: 7
+# TOTAL: 8
 # PASS: 1
 # SKIP: 2
 # XFAIL: 2
 # FAIL: 1
 # XPASS: 1
-# ERROR: 0
+# ERROR: 1
 """.lstrip()
 
         p = subprocess.run(

@@ -35,3 +35,12 @@ def test_xfail_function():
 @pytest.mark.xfail(reason="using pytest.mark.xfail")
 def test_xfail_doesnt():
     assert True
+
+
+@pytest.fixture
+def failing_fixture():
+    raise Exception("Raised exception")
+
+
+def test_error(failing_fixture):
+    assert failing_fixture == 2

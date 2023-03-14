@@ -69,7 +69,10 @@ def pytest_runtest_logreport(report):
         status = "PASS"
         print(f"{status}: {description}")
     elif report.failed:
-        status = "FAIL"
+        if report.when == "setup":
+            status = "ERROR"
+        else:
+            status = "FAIL"
         print()
         print(report.longreprtext)
         print(f"{status}: {description}")
