@@ -5,10 +5,10 @@ import subprocess
 import unittest
 
 
-class TestAutomake(unittest.TestCase):
+class TestPytest(unittest.TestCase):
     def test_just_pass(self):
         expected = """
-        PASS: tests.py:test_passes
+        PASS: pytest-testcase.py:test_passes
 ============================================================================
 Testsuite summary
 # TOTAL: 1
@@ -21,7 +21,7 @@ Testsuite summary
 """.lstrip()
 
         p = subprocess.run(
-            ["pytest", "--automake", "tests.py", "-k", "test_passes"],
+            ["pytest", "--automake", "pytest-testcase.py", "-k", "test_passes"],
             capture_output=True,
             text=True,
         )
@@ -30,27 +30,27 @@ Testsuite summary
 
     def test_all(self):
         expected = """
-PASS: tests.py:test_passes
+PASS: pytest-testcase.py:test_passes
 
 def test_fails():
 >       assert False
 E       assert False
 
-tests.py:14: AssertionError
-FAIL: tests.py:test_fails
-SKIP: tests.py:test_skip_decorator # SKIP using pytest.mark.skip
-SKIP: tests.py:test_skip_function # SKIP using pytest.skip()
-XFAIL: tests.py:test_xfail_decorator # XFAIL using pytest.mark.xfail
-XFAIL: tests.py:test_xfail_function # XFAIL reason: using pytest.xfail()
-XPASS: tests.py:test_xfail_doesnt # XPASS using pytest.mark.xfail
+pytest-testcase.py:14: AssertionError
+FAIL: pytest-testcase.py:test_fails
+SKIP: pytest-testcase.py:test_skip_decorator # SKIP using pytest.mark.skip
+SKIP: pytest-testcase.py:test_skip_function # SKIP using pytest.skip()
+XFAIL: pytest-testcase.py:test_xfail_decorator # XFAIL using pytest.mark.xfail
+XFAIL: pytest-testcase.py:test_xfail_function # XFAIL reason: using pytest.xfail()
+XPASS: pytest-testcase.py:test_xfail_doesnt # XPASS using pytest.mark.xfail
 
 @pytest.fixture
     def failing_fixture():
 >       raise Exception("Raised exception")
 E       Exception: Raised exception
 
-tests.py:42: Exception
-ERROR: tests.py:test_error
+pytest-testcase.py:42: Exception
+ERROR: pytest-testcase.py:test_error
 ============================================================================
 Testsuite summary
 # TOTAL: 8
@@ -63,7 +63,9 @@ Testsuite summary
 """.lstrip()
 
         p = subprocess.run(
-            ["pytest", "--automake", "tests.py"], capture_output=True, text=True
+            ["pytest", "--automake", "pytest-testcase.py"],
+            capture_output=True,
+            text=True,
         )
         self.assertEqual(p.stdout, expected)
         self.assertEqual(p.returncode, 1)
