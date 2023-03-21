@@ -41,18 +41,7 @@ def pytest_configure(config):
             config.pluginmanager.unregister(reporter)
 
 
-def pytest_runtest_logreport(report):
-    if not ENABLED:
-        return
-
-    to_display = (
-        (report.when == "setup" and report.outcome == "skipped")
-        or (report.when == "setup" and report.outcome == "failed")
-        or report.when == "call"
-    )
-    if not to_display:
-        return
-
+def handle_report(report):
     description = str(report.location[0]) + ":" + str(report.location[2])
 
     if hasattr(report, "wasxfail"):
@@ -85,6 +74,21 @@ def pytest_runtest_logreport(report):
         print(f"{status}: {report=}")
 
     counts[status] += 1
+
+
+def pytest_runtest_logreport(report):
+    if not ENABLED:
+        return
+
+    to_display = (
+        (report.when == "setup" and report.outcome == "skipped")
+        or (report.when == "setup" and report.outcome == "failed")
+        or report.when == "call"
+    )
+    if not to_display:
+        return
+
+    handle_report(report)
 
 
 def pytest_unconfigure(config):
