@@ -64,3 +64,21 @@ Testsuite summary
 # ERROR: 1
 """.lstrip()
         self.pytest(expected, 1, "pytest-testcase.py")
+
+    def test_collect_fail(self):
+        expected = """
+pytest-fail-collect.py:8: in <module>
+    raise Exception("This test failed to collect")
+E   Exception: This test failed to collect
+ERROR: pytest-fail-collect.py:pytest-fail-collect.py
+============================================================================
+Testsuite summary
+# TOTAL: 1
+# PASS: 0
+# SKIP: 0
+# XFAIL: 0
+# FAIL: 0
+# XPASS: 0
+# ERROR: 1
+"""
+        self.pytest(expected, 2, "pytest-fail-collect.py")
