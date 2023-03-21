@@ -58,7 +58,7 @@ def handle_report(report):
         status = "PASS"
         print(f"{status}: {description}")
     elif report.failed:
-        if report.when == "setup":
+        if report.when in ("collect", "setup"):
             status = "ERROR"
         else:
             status = "FAIL"
@@ -74,6 +74,11 @@ def handle_report(report):
         print(f"{status}: {report=}")
 
     counts[status] += 1
+
+
+def pytest_collectreport(report):
+    if not report.passed:
+        handle_report(report)
 
 
 def pytest_runtest_logreport(report):
