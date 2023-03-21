@@ -6,6 +6,15 @@ import unittest
 
 
 class TestPytest(unittest.TestCase):
+    def pytest(self, expected_output, expected_status, *args):
+        p = subprocess.run(
+            ["pytest", "--automake"] + list(args),
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(p.stdout, expected_output)
+        self.assertEqual(p.returncode, expected_status)
+
     def test_just_pass(self):
         expected = """
         PASS: pytest-testcase.py:test_passes
@@ -19,14 +28,7 @@ Testsuite summary
 # XPASS: 0
 # ERROR: 0
 """.lstrip()
-
-        p = subprocess.run(
-            ["pytest", "--automake", "pytest-testcase.py", "-k", "test_passes"],
-            capture_output=True,
-            text=True,
-        )
-        self.assertEqual(p.stdout, expected)
-        self.assertEqual(p.returncode, 0)
+        self.pytest(expected, 0, "pytest-testcase.py", "-k", "test_passes")
 
     def test_all(self):
         expected = """
@@ -61,11 +63,4 @@ Testsuite summary
 # XPASS: 1
 # ERROR: 1
 """.lstrip()
-
-        p = subprocess.run(
-            ["pytest", "--automake", "pytest-testcase.py"],
-            capture_output=True,
-            text=True,
-        )
-        self.assertEqual(p.stdout, expected)
-        self.assertEqual(p.returncode, 1)
+        self.pytest(expected, 1, "pytest-testcase.py")
