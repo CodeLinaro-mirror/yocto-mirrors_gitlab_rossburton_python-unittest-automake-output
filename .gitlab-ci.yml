@@ -12,14 +12,5 @@ build:
 test:
   stage: test
   script:
-    - python3 -mvenv venv
-    - . venv/bin/activate
-    - pip3 install dist/*.whl pytest
-    - cd tests
-    - python3 -munittest --verbose
-
-black:
-  stage: test
-  image: registry.gitlab.com/pipeline-components/black:latest
-  script:
-    - black --verbose --check -- .
+    - pip3 install tox
+    - tox
