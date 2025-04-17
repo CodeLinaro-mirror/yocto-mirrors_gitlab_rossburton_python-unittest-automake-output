@@ -8,6 +8,8 @@ import unittest
 
 class TestUnittest(unittest.TestCase):
     def test_all(self):
+        self.maxDiff = 5000
+
         test_script = os.path.realpath(
             os.path.join(os.path.dirname(__file__), "unittest-testcase.py")
         )
@@ -49,5 +51,5 @@ Testsuite summary
         p = subprocess.run(
             ["python3", "-mputao.unittest", test_script], capture_output=True, text=True
         )
-        self.assertEqual(p.stdout, expected)
-        self.assertEqual(p.returncode, 1)
+        self.assertEqual(expected, p.stdout)
+        self.assertEqual(1, p.returncode)

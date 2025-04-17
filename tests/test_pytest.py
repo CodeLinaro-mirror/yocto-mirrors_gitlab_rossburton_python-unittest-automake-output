@@ -7,6 +7,8 @@ import unittest
 
 class TestPytest(unittest.TestCase):
     def pytest(self, expected_output, expected_status, *args):
+        self.maxDiff = 5000
+
         p = subprocess.run(
             ["pytest", "--automake"] + list(args),
             capture_output=True,
