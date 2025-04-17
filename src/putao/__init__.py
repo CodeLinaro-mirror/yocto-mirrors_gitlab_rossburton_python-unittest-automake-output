@@ -5,4 +5,4 @@
 Tools to write automake-style test reports.
 """
 
-__version__ = "0.2"
+__version__ = "0.3"
