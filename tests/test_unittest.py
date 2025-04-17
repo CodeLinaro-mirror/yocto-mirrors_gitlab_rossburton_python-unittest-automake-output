@@ -3,6 +3,7 @@
 
 import os
 import subprocess
+import sys
 import unittest
 
 
@@ -14,6 +15,12 @@ class TestUnittest(unittest.TestCase):
             os.path.join(os.path.dirname(__file__), "unittest-testcase.py")
         )
 
+        # 3.13 added markers on exception
+        if sys.version_info > (3, 13):
+            marker = "\n    ~~~~~~~~~~~~~~~^^^^^^^"
+        else:
+            marker = ""
+
         expected = f"""
 ERROR: unittest-testcase.Tests.test_errors
 Traceback (most recent call last):
@@ -24,7 +31,7 @@ Exception: This was deliberate
 FAIL: unittest-testcase.Tests.test_fails
 Traceback (most recent call last):
   File "{test_script}", line 14, in test_fails
-    self.assertTrue(False)
+    self.assertTrue(False){marker}
 AssertionError: False is not true
 ============================================================================
 PASS: unittest-testcase.Tests.test_passes
@@ -33,7 +40,7 @@ SKIP: unittest-testcase.Tests.test_skip_function # SKIP Skipped with self.skipTe
 XFAIL: unittest-testcase.Tests.test_xfail
 Traceback (most recent call last):
   File "{test_script}", line 29, in test_xfail
-    self.assertTrue(False)
+    self.assertTrue(False){marker}
 AssertionError: False is not true
 XPASS: unittest-testcase.Tests.test_xpass
 

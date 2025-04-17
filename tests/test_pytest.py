@@ -19,7 +19,7 @@ class TestPytest(unittest.TestCase):
 
     def test_just_pass(self):
         expected = """
-        PASS: pytest-testcase.py:test_passes
+        PASS: tests/pytest-testcase.py:test_passes
 ============================================================================
 Testsuite summary
 # TOTAL: 1
@@ -34,19 +34,19 @@ Testsuite summary
 
     def test_all(self):
         expected = """
-PASS: pytest-testcase.py:test_passes
+PASS: tests/pytest-testcase.py:test_passes
 
 def test_fails():
 >       assert False
 E       assert False
 
 pytest-testcase.py:14: AssertionError
-FAIL: pytest-testcase.py:test_fails
-SKIP: pytest-testcase.py:test_skip_decorator # SKIP using pytest.mark.skip
-SKIP: pytest-testcase.py:test_skip_function # SKIP using pytest.skip()
-XFAIL: pytest-testcase.py:test_xfail_decorator # XFAIL using pytest.mark.xfail
-XFAIL: pytest-testcase.py:test_xfail_function # XFAIL reason: using pytest.xfail()
-XPASS: pytest-testcase.py:test_xfail_doesnt # XPASS using pytest.mark.xfail
+FAIL: tests/pytest-testcase.py:test_fails
+SKIP: tests/pytest-testcase.py:test_skip_decorator # SKIP using pytest.mark.skip
+SKIP: tests/pytest-testcase.py:test_skip_function # SKIP using pytest.skip()
+XFAIL: tests/pytest-testcase.py:test_xfail_decorator # XFAIL using pytest.mark.xfail
+XFAIL: tests/pytest-testcase.py:test_xfail_function # XFAIL reason: using pytest.xfail()
+XPASS: tests/pytest-testcase.py:test_xfail_doesnt # XPASS using pytest.mark.xfail
 
 @pytest.fixture
     def failing_fixture():
@@ -54,7 +54,7 @@ XPASS: pytest-testcase.py:test_xfail_doesnt # XPASS using pytest.mark.xfail
 E       Exception: Raised exception
 
 pytest-testcase.py:42: Exception
-ERROR: pytest-testcase.py:test_error
+ERROR: tests/pytest-testcase.py:test_error
 ============================================================================
 Testsuite summary
 # TOTAL: 8
@@ -72,7 +72,7 @@ Testsuite summary
 pytest-fail-collect.py:8: in <module>
     raise Exception("This test failed to collect")
 E   Exception: This test failed to collect
-ERROR: pytest-fail-collect.py:pytest-fail-collect.py
+ERROR: tests/pytest-fail-collect.py:tests/pytest-fail-collect.py
 ============================================================================
 Testsuite summary
 # TOTAL: 1
