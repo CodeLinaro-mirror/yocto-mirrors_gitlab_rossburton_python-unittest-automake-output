@@ -45,7 +45,7 @@ FAIL: tests/pytest-testcase.py:test_fails
 SKIP: tests/pytest-testcase.py:test_skip_decorator # SKIP using pytest.mark.skip
 SKIP: tests/pytest-testcase.py:test_skip_function # SKIP using pytest.skip()
 XFAIL: tests/pytest-testcase.py:test_xfail_decorator # XFAIL using pytest.mark.xfail
-XFAIL: tests/pytest-testcase.py:test_xfail_function # XFAIL reason: using pytest.xfail()
+XFAIL: tests/pytest-testcase.py:test_xfail_function # XFAIL using pytest.xfail()
 XPASS: tests/pytest-testcase.py:test_xfail_doesnt # XPASS using pytest.mark.xfail
 
 @pytest.fixture
