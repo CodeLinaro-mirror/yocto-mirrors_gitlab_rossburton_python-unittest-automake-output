@@ -67,7 +67,11 @@ def handle_report(report):
         print(f"{status}: {description}")
     elif report.skipped:
         status = "SKIP"
-        reason = report.longrepr[2].split(":", 1)[1].strip()
+        # there may not be a custom skipping message
+        if ":" in report.longrepr[2]:
+            reason = report.longrepr[2].split(":", 1)[1].strip()
+        else:
+            reason = report.longrepr[2].strip()
         print(f"{status}: {description} # {status} {reason}")
     else:
         status = "ARGH"
