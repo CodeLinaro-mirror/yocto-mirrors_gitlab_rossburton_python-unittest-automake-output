@@ -55,11 +55,12 @@ E       Exception: Raised exception
 
 pytest-testcase.py:42: Exception
 ERROR: tests/pytest-testcase.py:test_error
+SKIP: tests/pytest-testcase.py:test_skip_function_no_message # SKIP Skipped
 ============================================================================
 Testsuite summary
-# TOTAL: 8
+# TOTAL: 9
 # PASS: 1
-# SKIP: 2
+# SKIP: 3
 # XFAIL: 2
 # FAIL: 1
 # XPASS: 1

@@ -44,3 +44,7 @@ def failing_fixture():
 
 def test_error(failing_fixture):
     assert failing_fixture == 2
+
+
+def test_skip_function_no_message():
+    pytest.skip()
