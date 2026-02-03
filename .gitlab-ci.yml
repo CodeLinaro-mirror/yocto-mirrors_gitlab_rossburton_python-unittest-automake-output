@@ -14,7 +14,7 @@ test:
   stage: test
   parallel:
     matrix:
-      - VERSION: ['3.10', '3.11', '3.12', '3.13', 'latest']
+      - VERSION: ['3.10', '3.11', '3.12', '3.13', '3.14', 'latest']
   script:
     - pip3 install tox
     - tox
