@@ -14,8 +14,8 @@ class TestPytest(unittest.TestCase):
             capture_output=True,
             text=True,
         )
-        self.assertEqual(p.stdout, expected_output)
-        self.assertEqual(p.returncode, expected_status)
+        self.assertEqual(expected_output, p.stdout)
+        self.assertEqual(expected_status, p.returncode)
 
     def test_just_pass(self):
         expected = """
