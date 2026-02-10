@@ -48,3 +48,10 @@ def test_error(failing_fixture):
 
 def test_skip_function_no_message():
     pytest.skip()
+
+
+# https://gitlab.com/rossburton/python-unittest-automake-output/-/issues/10
+def test_deep_compare():
+    d1 = {"foo": 42, "bar": 69}
+    d2 = {"foo": 42, "bar": 96}
+    assert d1.items() == d2.items()

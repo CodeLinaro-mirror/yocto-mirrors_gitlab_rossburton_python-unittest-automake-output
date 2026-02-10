@@ -1,25 +1,29 @@
 # SPDX-FileCopyrightText: Copyright 2023 Arm Limited and/or its affiliates <open-source-office@arm.com>
 # SPDX-License-Identifier: MIT
 
+import os
 import subprocess
 import unittest
 
 
 class TestPytest(unittest.TestCase):
     def pytest(self, expected_output, expected_status, *args):
-        self.maxDiff = 5000
+        self.maxDiff = None
 
         p = subprocess.run(
             ["pytest", "--automake"] + list(args),
             capture_output=True,
             text=True,
+            env={**os.environ, "COLUMNS": "80"},
         )
         self.assertEqual(expected_output, p.stdout)
         self.assertEqual(expected_status, p.returncode)
 
     def test_just_pass(self):
         expected = """
-        PASS: tests/pytest-testcase.py:test_passes
+collected 10 items / 9 deselected / 1 selected
+PASS: tests/pytest-testcase.py:test_passes
+
 ============================================================================
 Testsuite summary
 # TOTAL: 1
@@ -34,6 +38,7 @@ Testsuite summary
 
     def test_all(self):
         expected = """
+collected 10 items
 PASS: tests/pytest-testcase.py:test_passes
 
 def test_fails():
@@ -56,13 +61,25 @@ E       Exception: Raised exception
 pytest-testcase.py:42: Exception
 ERROR: tests/pytest-testcase.py:test_error
 SKIP: tests/pytest-testcase.py:test_skip_function_no_message # SKIP Skipped
+
+def test_deep_compare():
+        d1 = {"foo": 42, "bar": 69}
+        d2 = {"foo": 42, "bar": 96}
+>       assert d1.items() == d2.items()
+E       AssertionError: assert dict_items([(... ('bar', 69)]) == dict_items([(... ('bar', 96)])
+E         
+E         Use -v to get more diff
+
+pytest-testcase.py:57: AssertionError
+FAIL: tests/pytest-testcase.py:test_deep_compare
+
 ============================================================================
 Testsuite summary
-# TOTAL: 9
+# TOTAL: 10
 # PASS: 1
 # SKIP: 3
 # XFAIL: 2
-# FAIL: 1
+# FAIL: 2
 # XPASS: 1
 # ERROR: 1
 """.lstrip()
@@ -74,6 +91,9 @@ pytest-fail-collect.py:8: in <module>
     raise Exception("This test failed to collect")
 E   Exception: This test failed to collect
 ERROR: tests/pytest-fail-collect.py:tests/pytest-fail-collect.py
+collected 0 items / 1 error
+
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
 ============================================================================
 Testsuite summary
 # TOTAL: 1
