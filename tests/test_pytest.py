@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import os
+import re
 import subprocess
 import unittest
 
@@ -16,7 +17,9 @@ class TestPytest(unittest.TestCase):
             text=True,
             env={**os.environ, "COLUMNS": "80"},
         )
-        self.assertEqual(expected_output, p.stdout)
+        # pytest 9.2.0 adds "Extra items" lines to the dict comparison, drop them.
+        stdout = re.sub(r"^E +Extra items.*\nE +.*\n", "", p.stdout, flags=re.M)
+        self.assertEqual(expected_output, stdout)
         self.assertEqual(expected_status, p.returncode)
 
     def test_just_pass(self):
